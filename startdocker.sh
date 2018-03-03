@@ -26,6 +26,7 @@ for i in "${REPOS[@]}"
 do
     if [ -d $i ]; then 
         cd $i
+        rm -r logs/
         git checkout -b "development"
         git add .
         git commit -m "dev work"
@@ -34,4 +35,4 @@ do
     fi
 done
 
-printf "\Done with development :)\n" 
+printf "\n\nDone with development :)\n\n" 
