@@ -21,3 +21,15 @@ done
 cd journai-development
 docker build . --tag development
 docker run -p 1000:1000 -p 2000:2000 -p 3000:3000 -p 4000:4000 -p 5000:5000 -t -i --mount type=bind,src=$(cd "$(dirname "$0")"; pwd)/../,dst=/home/Journai development
+cd ..
+for i in "${REPOS[@]}"
+do
+    if [ -d $i ]; then 
+        cd $i
+        git checkout -b "development"
+        git add .
+        git commit -m "dev work"
+        git push -u origin development
+        cd ../
+    fi
+done
