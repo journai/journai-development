@@ -5,7 +5,7 @@ fi
 if [ ! -d $DIRECTORY ]; then  
     mkdir -p $DIRECTORY
 fi
-cd $DIRECTORY
+cd $DIRECTORY 
 declare -a REPOS=("journai-authentication" "journai-entries" "journai-frontend" "journai-reminders" "journai-reporting" "journai-development")
 for i in "${REPOS[@]}"
 do
@@ -18,5 +18,6 @@ do
         git clone $URL
     fi
 done
-# docker build . --tag development && cd ..
-# docker run -p 3000:3000 -t -i --mount type=bind,src=$(cd "$(dirname "$0")"; pwd),dst=/home/Journai development /bin/bash
+cd journai-development
+docker build . --tag development
+docker run -p 1000:1000 -p 2000:2000 -p 3000:3000 -p 4000:4000 -p 5000:5000 -t -i --mount type=bind,src=$(cd "$(dirname "$0")"; pwd)/../,dst=/home/Journai development
