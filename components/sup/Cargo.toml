@@ -1,0 +1,81 @@
+[package]
+name = "habitat_sup"
+version = "0.0.0"
+authors = ["Adam Jacob <adam@chef.io>", "Jamie Winsor <reset@chef.io>", "Fletcher Nichol <fnichol@chef.io>", "Joshua Timberman <joshua@chef.io>", "Dave Parfitt <dparfitt@chef.io>"]
+build = "./build.rs"
+workspace = "../../"
+
+[lib]
+name = "habitat_sup"
+
+[[bin]]
+name = "hab-sup"
+path = "src/main.rs"
+doc = false
+
+[dependencies]
+clippy = {version = "*", optional = true}
+ansi_term = "*"
+base64 = "*"
+bitflags = "*"
+byteorder = "*"
+clap = { version = "*", features = [ "suggestions", "color", "unstable" ] }
+env_logger = "*"
+features = "*"
+glob = "*"
+habitat_butterfly = { path = "../butterfly" }
+habitat_common = { path = "../common" }
+habitat_core = { git = "https://github.com/habitat-sh/core.git" }
+habitat_depot_client = { path = "../builder-depot-client" }
+habitat-eventsrv-client = { path = "../eventsrv-client" }
+habitat-launcher-client = { path = "../launcher-client" }
+# The handlebars crate has a few issues that require us to lock at 0.28.3
+# until further notice.
+#
+# - 0.30.0 bumps to a version of the `pest` crate that fails to build
+#   on Windows.
+# - 0.29.0 makes a change to array processing that is incompatible
+#   with our templating syntax; we use "foo[0]", but it now requires
+#   "foo.[0]"
+#   See https://github.com/sunng87/handlebars-rust/commit/707f05442ef6f441a1cfc6b13ac180b78cb296db
+handlebars = { version = "= 0.28.3", default-features = false }
+iron = "*"
+lazy_static = "*"
+libc = "*"
+log = "*"
+notify = "*"
+persistent = "*"
+prometheus = "*"
+protobuf = "*"
+rand = "*"
+regex = "*"
+router = "*"
+serde = { version = "*", features = ["rc"] }
+serde_derive = "*"
+serde_json = "*"
+serde_yaml = "*"
+tabwriter = "*"
+tempdir = "*"
+time = "*"
+toml = { version = "*", default-features = false }
+url = "*"
+
+[target.'cfg(target_os = "linux")'.dependencies]
+caps = "*"
+
+[target.'cfg(windows)'.dependencies]
+ctrlc = "*"
+crypt32-sys = "*"
+winapi = "0.2"
+
+[dev-dependencies]
+hyper = "0.10"
+
+[dev-dependencies.habitat_core]
+git = "https://github.com/habitat-sh/core.git"
+
+[dev-dependencies.habitat_butterfly]
+path = "../butterfly"
+
+[features]
+apidocs =[]

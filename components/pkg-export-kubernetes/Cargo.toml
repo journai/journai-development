@@ -1,0 +1,34 @@
+[package]
+name = "habitat_pkg_export_kubernetes"
+version = "0.0.0"
+authors = ["Krzesimir Nowak <krzesimir@kinvolk.io>",
+           "Zeeshan Ali <zeeshan@kinvolk.io>"]
+build = "../build-habitat.rs"
+workspace = "../../"
+
+[lib]
+name = "habitat_pkg_export_kubernetes"
+
+[[bin]]
+name = "hab-pkg-export-kubernetes"
+path = "src/main.rs"
+doc = false
+
+[dependencies]
+base64 = "*"
+clap = { version = "*", features = ["suggestions", "color", "unstable"] }
+env_logger = "*"
+habitat_core = { git = "https://github.com/habitat-sh/core.git" }
+habitat_common = { path = "../common" }
+habitat_pkg_export_docker = { path = "../pkg-export-docker" }
+# We need to lock here since v0.30.0 bumps to a version of pest that fails to build on Windows.
+handlebars = { version = "0.29.1", default-features = false }
+log = "*"
+serde = "1.0.2"
+serde_json = "1.0.0"
+failure = { git = "https://github.com/withoutboats/failure.git" }
+failure_derive = { git = "https://github.com/withoutboats/failure_derive.git" }
+
+[features]
+default = []
+functional = []
