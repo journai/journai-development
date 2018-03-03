@@ -11,7 +11,9 @@ for i in "${REPOS[@]}"
 do
     if [ -d $i ]; then 
         cd $i
-        git pull
+        mkdir logs
+        git pull development
+        git checkout -b development
         cd ../
     else
         URL="https://journai:noway123@github.com/journai/$i.git"
