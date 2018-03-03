@@ -33,3 +33,5 @@ do
         cd ../
     fi
 done
+
+printf "\Done with development :)\n" 
