@@ -7,30 +7,33 @@ if [ ! -d $DIRECTORY ]; then
 fi
 cd $DIRECTORY 
 declare -a REPOS=("journai-authentication" "journai-entries" "journai-frontend" "journai-reminders" "journai-reporting" "journai-development")
-declare -A PORTS=( ["journai-authentication"]="1000" ["journai-entries"]="2000" ["journai-reminders"]="3000" ["journai-reporting"]="4000" ["journai-development"]="5000")
+declare -a PORTS=("1000" "2000" "3000" "4000" "5000")
+# for i in "${!PORTS[@]}"
+# do
+#     SERVICE=${REPOS[i]}
+#     PORT=${PORTS[i]}
+#     docker rm $(docker stop $(docker ps -a -q --filter ancestor=$SERVICE --format="{{.ID}}"))
+#     if [ -d $SERVICE ]; then 
+#         cd $SERVICE
+#         rm -r logs
+#         mkdir logs
+#         git pull development
+#         git checkout -b development
+#         cd ../
+#     else
+#         URL="https://journai:noway123@github.com/journai/$SERVICE.git"
+#         git clone $URL
+#     fi
+#     cd journai-development
+#     docker build --build-arg port=$PORT --build-arg service=$SERVICE . --tag $SERVICE
+#     docker run -p $PORT:$PORT -td -i --mount type=bind,src=$(cd "$(dirname "$0")"; pwd)/../$SERVICE,dst=/home/Journai/$SERVICE $SERVICE
+#     cd ../
+# done
+# printf "\n\nReady for development :)\n\n" 
 for i in "${REPOS[@]}"
 do
     if [ -d $i ]; then 
         cd $i
-        mkdir logs
-        git pull development
-        git checkout -b development
-        cd ../
-    else
-        URL="https://journai:noway123@github.com/journai/$i.git"
-        git clone $URL
-    fi
-    cd journai-development
-    docker build --build-arg port=${REPOS[$i]} service=$i . --tag $i
-    docker run -p ${REPOS[$i]}:${REPOS[$i]} -t -i --mount type=bind,src=$(cd "$(dirname "$0")"; pwd)/../,dst=/home/Journai/$i $i
-    cd ../
-done
-
-for i in "${REPOS[@]}"
-do
-    if [ -d $i ]; then 
-        cd $i
-        rm -r logs/
         git checkout -b "development"
         git add .
         git commit -m "dev work"
@@ -39,4 +42,4 @@ do
     fi
 done
 
-printf "\n\nDone with development :)\n\n" 
+# printf "\n\nDone with development :)\n\n" 

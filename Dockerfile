@@ -194,13 +194,8 @@ RUN npm install pm2 -g
 ARG port
 ARG service
 
-RUN mkdir /home/Journai/${service}
-
-EXPOSE $port
+EXPOSE ${port}
 
 WORKDIR /home/Journai/${service}
 
-RUN echo $port
-RUN echo $service
-
-# CMD ["npm", "start"]
+CMD ["npm", "start"]
