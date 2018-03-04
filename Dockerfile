@@ -200,4 +200,7 @@ EXPOSE $port
 
 WORKDIR /home/Journai/${service}
 
-CMD ["npm", "start"]
+RUN echo $port
+RUN echo $service
+
+# CMD ["npm", "start"]
