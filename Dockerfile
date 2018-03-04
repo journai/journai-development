@@ -194,7 +194,6 @@ RUN npm install pm2 -g
 ARG port
 ARG service
 
-RUN mkdir /home/Journai
 RUN mkdir /home/Journai/${service}
 
 EXPOSE $port

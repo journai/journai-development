@@ -20,8 +20,10 @@ do
         URL="https://journai:noway123@github.com/journai/$i.git"
         git clone $URL
     fi
+    cd journai-development
     docker build . --tag $i
     docker run -p ${REPOS[$i]}:${REPOS[$i]} -t -i --mount type=bind,src=$(cd "$(dirname "$0")"; pwd)/../,dst=/home/Journai/$i --build-arg port=${REPOS[$i]} service=$i $i
+    cd ../
 done
 
 for i in "${REPOS[@]}"
