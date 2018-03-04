@@ -189,7 +189,7 @@ RUN apt-get update \
     /var/lib/apt/lists/*
 
 WORKDIR /src
-RUN npm install pm2 -g
+RUN npm install nodemon -g
 
 ARG port
 ARG service

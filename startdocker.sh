@@ -30,7 +30,8 @@ do
     cd ../
 done
 printf "\n\nReady for development :)\n\n" 
-read -p "Press 'enter' to commit changes"
+read -p "Press 'enter' to commit changes. Ctrl+c to cancel"
+printf "\n" 
 for i in "${REPOS[@]}"
 do
     if [ -d $i ]; then 
