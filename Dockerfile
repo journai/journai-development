@@ -200,4 +200,4 @@ EXPOSE $port
 
 WORKDIR /home/Journai/${service}
 
-CMD ["/bin/bash", "/home/Journai/journai-development/servicestarters.sh"]
+CMD ["npm", "start"]
