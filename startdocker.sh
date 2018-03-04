@@ -21,8 +21,8 @@ do
         git clone $URL
     fi
     cd journai-development
-    docker build . --tag $i
-    docker run -p ${REPOS[$i]}:${REPOS[$i]} -t -i --mount type=bind,src=$(cd "$(dirname "$0")"; pwd)/../,dst=/home/Journai/$i --build-arg port=${REPOS[$i]} service=$i $i
+    docker build --build-arg port=${REPOS[$i]} service=$i . --tag $i
+    docker run -p ${REPOS[$i]}:${REPOS[$i]} -t -i --mount type=bind,src=$(cd "$(dirname "$0")"; pwd)/../,dst=/home/Journai/$i $i
     cd ../
 done
 
