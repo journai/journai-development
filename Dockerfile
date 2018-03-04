@@ -191,13 +191,14 @@ RUN apt-get update \
 WORKDIR /src
 RUN npm install pm2 -g
 
-RUN mkdir /home/Journai
-WORKDIR /home/Journai/
+ARG port
+ARG service
 
-EXPOSE 1000
-EXPOSE 2000
-EXPOSE 3000
-EXPOSE 4000
-EXPOSE 5000
+RUN mkdir /home/Journai
+RUN mkdir /home/Journai/${service}
+
+EXPOSE $port
+
+WORKDIR /home/Journai/${service}
 
 CMD ["/bin/bash", "/home/Journai/journai-development/servicestarters.sh"]
