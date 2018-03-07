@@ -12,22 +12,23 @@ for i in "${!PORTS[@]}"
 do
     SERVICE=${REPOS[i]}
     PORT=${PORTS[i]}
-    docker rm $(docker stop $(docker ps -a -q --filter ancestor=$SERVICE --format="{{.ID}}"))
-    if [ -d $SERVICE ]; then 
-        cd $SERVICE
-        mkdir logs
-        rm -rf logs
-        git pull development
-        git checkout -b development
-        cd ../
-    else
-        URL="https://journai:noway123@github.com/journai/$SERVICE.git"
-        git clone $URL
-    fi
-    cd journai-development
-    docker build --build-arg port=$PORT --build-arg service=$SERVICE . --tag $SERVICE
-    docker run -p $PORT:$PORT -td -i --mount type=bind,src=$(cd "$(dirname "$0")"; pwd)/../$SERVICE,dst=/home/Journai/$SERVICE $SERVICE
-    cd ../
+    # docker rm $(docker stop $(docker ps -a -q --filter ancestor=$SERVICE --format="{{.ID}}"))
+    # if [ -d $SERVICE ]; then 
+    #     cd $SERVICE
+    #     mkdir logs
+    #     rm -rf logs
+    #     git pull development
+    #     git checkout -b development
+    #     cd ../
+    # else
+    #     URL="https://journai:noway123@github.com/journai/$SERVICE.git"
+    #     git clone $URL
+    # fi
+    # cd journai-development
+    # docker build --build-arg port=$PORT --build-arg service=$SERVICE . --tag $SERVICE
+    # docker run -p $PORT:$PORT -td -i --mount type=bind,src=$(cd "$(dirname "$0")"; pwd)/../$SERVICE,dst=/home/Journai/$SERVICE $SERVICE
+    # docker run -p $PORT:$PORT -td -i --mount type=bind,src=/Users/verabalagula/workspace,dst=/home/Journai/ $SERVICE
+    # cd ../
 done
 printf "\n\nReady for development :)\n\n" 
 read -p "Press 'enter' to commit changes. Ctrl+c to cancel"
